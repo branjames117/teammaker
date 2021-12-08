@@ -35,7 +35,7 @@ describe('Engineer', () => {
       123456,
       'bobross69'
     );
-    expect(engineer.getGitHubProfile()).toBe('bobross69');
+    expect(engineer.getGitHub()).toBe('bobross69');
   });
 });
 
