@@ -21,7 +21,7 @@ In a CLI, enter `git clone <src>`, `cd` into the new directory, then `npm i` to 
 
 ## Usage
 
-In a CLI, `cd` into the project directory and enter `node app`.
+In a CLI, `cd` into the project directory and enter `node index`.
 
 ## License
 
