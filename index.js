@@ -1,6 +1,7 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const fs = require('fs');
 const inquirer = require('inquirer');
 const generateHTML = require('./src/generateHTML');
 
@@ -13,4 +14,6 @@ const team = [
   new Intern('Miike Bolio', 'mbolio@gmail.com', 336, 'Miskatonic Uni'),
 ];
 
-console.log(generateHTML(team));
+fs.writeFile('./dist/index.html', generateHTML(team), (err) => {
+  console.error(err);
+});
