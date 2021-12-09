@@ -15,5 +15,6 @@ const team = [
 ];
 
 fs.writeFile('./dist/index.html', generateHTML(team), (err) => {
-  console.error(err);
+  if (err) throw err;
+  console.log('Page generated! Check out index.html in the dist directory!');
 });
