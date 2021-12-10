@@ -1,4 +1,46 @@
-function generateEmployeeHTML(team) {
+// generate the main HTML template for the page
+module.exports = function generateHTML(team) {
+  return `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet Our Team</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        font-family: 'Readex Pro', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-purple-100 overflow-x-hidden">
+    <header class="flex justify-center items-center bg-purple-400 black w-100 h-14">
+      <h2 class="text-2xl">Meet the Development Team</h2>
+    </header>
+
+    <main class="container flex flex-row flex-wrap gap-y-8 pt-20 place-content-center mx-auto">
+    ${generateEmployeeCardHTML(team)}
+
+    </main>
+  </body>
+</html>
+  `;
+};
+
+// generate the HTML for each employee's 'card'
+function generateEmployeeCardHTML(team) {
   let html = ``;
 
   team.forEach((employee) => {
@@ -43,6 +85,7 @@ function generateEmployeeHTML(team) {
   return html;
 }
 
+// get font-awesome icon depending on the role
 function getRoleIcon(role) {
   switch (role) {
     case 'Manager':
@@ -54,6 +97,7 @@ function getRoleIcon(role) {
   }
 }
 
+// get additional role icon depending on the role
 function getExtraIcon(role) {
   switch (role) {
     case 'Manager':
@@ -65,6 +109,7 @@ function getExtraIcon(role) {
   }
 }
 
+// get additional data from employee object depending on the role
 function getExtraData(employee, role) {
   switch (role) {
     case 'Manager':
@@ -76,45 +121,3 @@ function getExtraData(employee, role) {
       return `${employee.getSchool()}`;
   }
 }
-
-function generateHTML(team) {
-  return `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meet Our Team</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro&display=swap" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      body {
-        font-family: 'Readex Pro', sans-serif;
-      }
-    </style>
-  </head>
-  <body class="bg-purple-100 overflow-x-hidden">
-    <header class="flex justify-center items-center bg-purple-400 black w-100 h-14">
-      <h2 class="text-2xl">Meet the Development Team</h2>
-    </header>
-
-    <main class="container flex flex-row flex-wrap gap-y-8 pt-20 place-content-center mx-auto">
-    ${generateEmployeeHTML(team)}
-
-    </main>
-  </body>
-</html>
-  `;
-}
-
-module.exports = generateHTML;

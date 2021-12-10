@@ -104,10 +104,14 @@ const promptManager = () => {
       },
     ])
     .then((answers) => {
-      console.log(answers);
+      // destructure answers from inquirer
       const { name, id, email, office, addEngineer, addIntern } = answers;
+
+      // instantiate a Manager object and push to team array
       const manager = new Manager(name, id, email, office);
       team.push(manager);
+
+      // if adding engineer, prompt to add engineer, else prompt to add intern, else generate the HTML and write it to file
       if (addEngineer) {
         promptEngineer();
       } else if (addIntern) {
@@ -194,8 +198,11 @@ const promptEngineer = () => {
     ])
     .then((answers) => {
       const { name, id, email, github, addEngineer, addIntern } = answers;
+
       const engineer = new Engineer(name, id, email, github);
       team.push(engineer);
+
+      // if adding another engineer, prompt engineer, else prompt intern, else generate HTML and write file
       if (addEngineer) {
         promptEngineer();
       } else if (addIntern) {
@@ -274,8 +281,11 @@ const promptIntern = () => {
     ])
     .then((answers) => {
       const { name, id, email, school, addIntern } = answers;
+
       const intern = new Intern(name, id, email, school);
       team.push(intern);
+
+      // if adding another intern, prompt intern, else generate html and write file
       if (addIntern) {
         promptIntern();
       } else {
@@ -293,8 +303,7 @@ const promptIntern = () => {
   ------------------------------------------------------------------
   Enter data about each member of your development team to produce
   a quality webpage written in HTML and Tailwind CSS for use on your
-  business's website! MAKE YOURSELVES KNOWN!
-  `);
+  business's website! MAKE YOURSELVES KNOWN!`);
 
   // begin manager prompt
   promptManager();
