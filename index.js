@@ -57,7 +57,7 @@ const promptManager = () => {
         name: 'name',
         message: "Team Manager's name:",
         validate(name) {
-          if (!name) {
+          if (!name.trim()) {
             return 'Name is required.';
           } else {
             return true;
@@ -69,7 +69,7 @@ const promptManager = () => {
         name: 'id',
         message: "Team Manager's employee ID number:",
         validate(id) {
-          if (!id) {
+          if (!id.trim()) {
             return 'Employee ID is required.';
           } else if (isNaN(id)) {
             return 'Employee ID must be a number.';
@@ -83,9 +83,9 @@ const promptManager = () => {
         name: 'email',
         message: "Team Manager's email address:",
         validate(email) {
-          if (email) {
-            return validateEmail(email);
-          } else if (!email) {
+          if (email.trim()) {
+            return validateEmail(email.trim());
+          } else if (!email.trim()) {
             return 'Email address is required.';
           } else {
             return true;
@@ -97,7 +97,7 @@ const promptManager = () => {
         name: 'office',
         message: "Team Manager's office number:",
         validate(office) {
-          if (!office) {
+          if (!office.trim()) {
             return 'Office number is required.';
           } else {
             return true;
@@ -155,7 +155,7 @@ const promptEngineer = () => {
         name: 'name',
         message: "Engineer's name:",
         validate(name) {
-          if (!name) {
+          if (!name.trim()) {
             return 'Name is required.';
           } else {
             return true;
@@ -167,7 +167,7 @@ const promptEngineer = () => {
         name: 'id',
         message: "Engineer's employee ID number:",
         validate(id) {
-          if (!id) {
+          if (!id.trim()) {
             return 'Employee ID is required.';
           } else if (isNaN(id)) {
             return 'Employee ID must be a number.';
@@ -181,9 +181,9 @@ const promptEngineer = () => {
         name: 'email',
         message: "Engineer's email address:",
         validate(email) {
-          if (email) {
-            return validateEmail(email);
-          } else if (!email) {
+          if (email.trim()) {
+            return validateEmail(email.trim());
+          } else if (!email.trim()) {
             return 'Email address is required.';
           } else {
             return true;
@@ -195,7 +195,7 @@ const promptEngineer = () => {
         name: 'github',
         message: "Engineer's GitHub username:",
         validate(github) {
-          if (!github) {
+          if (!github.trim()) {
             return 'GitHub username is required.';
           } else {
             return true;
@@ -249,7 +249,7 @@ const promptIntern = () => {
         name: 'name',
         message: "Intern's name:",
         validate(name) {
-          if (!name) {
+          if (!name.trim()) {
             return 'Name is required.';
           } else {
             return true;
@@ -261,9 +261,9 @@ const promptIntern = () => {
         name: 'id',
         message: "Intern's employee ID number:",
         validate(id) {
-          if (!id) {
+          if (!id.trim()) {
             return 'Employee ID is required.';
-          } else if (isNaN(id)) {
+          } else if (isNaN(id.trim())) {
             return 'Employee ID must be a number.';
           } else {
             return true;
@@ -275,9 +275,9 @@ const promptIntern = () => {
         name: 'email',
         message: "Intern's email address:",
         validate(email) {
-          if (email) {
-            return validateEmail(email);
-          } else if (!email) {
+          if (email.trim()) {
+            return validateEmail(email.trim());
+          } else if (!email.trim()) {
             return 'Email address is required.';
           } else {
             return true;
@@ -289,7 +289,7 @@ const promptIntern = () => {
         name: 'school',
         message: "Intern's school:",
         validate(school) {
-          if (!school) {
+          if (!school.trim()) {
             return 'School is required.';
           } else {
             return true;
