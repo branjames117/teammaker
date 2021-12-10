@@ -23,6 +23,8 @@ In a CLI, enter `git clone <src>`, `cd` into the new directory, then `npm i` to 
 
 In a CLI, `cd` into the project directory and enter `node index`.
 
+For a video demo, visit [here](https://watch.screencastify.com/v/G3veUIb4BxBO0wIhvbQC).
+
 ## License
 
 [The MIT License](https://mit-license.org/)
