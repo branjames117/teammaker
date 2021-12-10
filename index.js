@@ -3,7 +3,11 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 const generateHTML = require('./src/generateHTML');
+
+// highlight from chalk
+const highlight = chalk.keyword('magenta');
 
 // // dummy data
 // const team = [
@@ -15,15 +19,24 @@ const generateHTML = require('./src/generateHTML');
 // ];
 
 // write generated HTML to file
-function writeToFile(dest, src) {
-  fs.writeFile(dest, src, (err) => {
+function writeFile(team) {
+  const html = generateHTML(team);
+  fs.writeFile('./dist/index.html', html, (err) => {
     if (err) console.log(err);
     else {
       console.log(
-        'Page generated! Check out index.html in the dist directory!'
+        `Page generated! Check out ${highlight(
+          'index.html'
+        )} in the dist directory!`
       );
     }
   });
+}
+
+// check if email address is valid
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email) ? true : 'Enter a valid email address.';
 }
 
 // initialize empty team array
@@ -33,7 +46,7 @@ const team = [];
 const promptManager = () => {
   console.log(`
   --------------------
-    Add Team Manager
+    ${highlight('Add Team Manager')}
   --------------------
 `);
 
@@ -42,10 +55,10 @@ const promptManager = () => {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the Team Manager?',
+        message: "Team Manager's name:",
         validate(name) {
           if (!name) {
-            return 'Team Manager name is required.';
+            return 'Name is required.';
           } else {
             return true;
           }
@@ -54,10 +67,12 @@ const promptManager = () => {
       {
         type: 'input',
         name: 'id',
-        message: "What is the Team Manager's employee ID number?",
+        message: "Team Manager's employee ID number:",
         validate(id) {
           if (!id) {
-            return 'Team Manager ID is required.';
+            return 'Employee ID is required.';
+          } else if (isNaN(id)) {
+            return 'Employee ID must be a number.';
           } else {
             return true;
           }
@@ -66,10 +81,12 @@ const promptManager = () => {
       {
         type: 'input',
         name: 'email',
-        message: "What is the Team Manager's email address?",
+        message: "Team Manager's email address:",
         validate(email) {
-          if (!email) {
-            return 'Team Manager email address is required.';
+          if (email) {
+            return validateEmail(email);
+          } else if (!email) {
+            return 'Email address is required.';
           } else {
             return true;
           }
@@ -78,10 +95,10 @@ const promptManager = () => {
       {
         type: 'input',
         name: 'office',
-        message: "What is the Team Manager's office number?",
+        message: "Team Manager's office number:",
         validate(office) {
           if (!office) {
-            return 'Team Manager office number is required.';
+            return 'Office number is required.';
           } else {
             return true;
           }
@@ -90,7 +107,7 @@ const promptManager = () => {
       {
         type: 'confirm',
         name: 'addEngineer',
-        message: 'Add an Engineer to the team?',
+        message: 'Next, add an Engineer to the team?',
         default: true,
       },
       {
@@ -99,6 +116,7 @@ const promptManager = () => {
         message: 'Add an Intern to the team?',
         default: true,
         when(answers) {
+          // only jump to prompting intern if engineer is skipped
           return !answers.addEngineer;
         },
       },
@@ -117,8 +135,7 @@ const promptManager = () => {
       } else if (addIntern) {
         promptIntern();
       } else {
-        const html = generateHTML(team);
-        writeToFile('./dist/index.html', html);
+        writeFile(team);
       }
     });
 };
@@ -127,7 +144,7 @@ const promptManager = () => {
 const promptEngineer = () => {
   console.log(`
   --------------------
-      Add Engineer
+      ${highlight('Add Engineer')}
   --------------------
 `);
 
@@ -136,10 +153,10 @@ const promptEngineer = () => {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the Engineer?',
+        message: "Engineer's name:",
         validate(name) {
           if (!name) {
-            return 'Engineer name is required.';
+            return 'Name is required.';
           } else {
             return true;
           }
@@ -148,10 +165,12 @@ const promptEngineer = () => {
       {
         type: 'input',
         name: 'id',
-        message: "What is the Engineer's employee ID number?",
+        message: "Engineer's employee ID number:",
         validate(id) {
           if (!id) {
-            return 'Engineer ID is required.';
+            return 'Employee ID is required.';
+          } else if (isNaN(id)) {
+            return 'Employee ID must be a number.';
           } else {
             return true;
           }
@@ -160,10 +179,12 @@ const promptEngineer = () => {
       {
         type: 'input',
         name: 'email',
-        message: "What is the Engineer's email address?",
+        message: "Engineer's email address:",
         validate(email) {
-          if (!email) {
-            return 'Engineer email address is required.';
+          if (email) {
+            return validateEmail(email);
+          } else if (!email) {
+            return 'Email address is required.';
           } else {
             return true;
           }
@@ -172,10 +193,10 @@ const promptEngineer = () => {
       {
         type: 'input',
         name: 'github',
-        message: "What is the Engineer's GitHub username?",
+        message: "Engineer's GitHub username:",
         validate(github) {
           if (!github) {
-            return 'Engineer GitHub username is required.';
+            return 'GitHub username is required.';
           } else {
             return true;
           }
@@ -208,8 +229,7 @@ const promptEngineer = () => {
       } else if (addIntern) {
         promptIntern();
       } else {
-        const html = generateHTML(team);
-        writeToFile('./dist/index.html', html);
+        writeFile(team);
       }
     });
 };
@@ -218,7 +238,7 @@ const promptEngineer = () => {
 const promptIntern = () => {
   console.log(`
   --------------------
-       Add Intern
+       ${highlight('Add Intern')}
   --------------------
 `);
 
@@ -227,10 +247,10 @@ const promptIntern = () => {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the Intern?',
+        message: "Intern's name:",
         validate(name) {
           if (!name) {
-            return 'Intern name is required.';
+            return 'Name is required.';
           } else {
             return true;
           }
@@ -239,10 +259,12 @@ const promptIntern = () => {
       {
         type: 'input',
         name: 'id',
-        message: "What is the Intern's employee ID number?",
+        message: "Intern's employee ID number:",
         validate(id) {
           if (!id) {
-            return 'Intern ID is required.';
+            return 'Employee ID is required.';
+          } else if (isNaN(id)) {
+            return 'Employee ID must be a number.';
           } else {
             return true;
           }
@@ -251,10 +273,12 @@ const promptIntern = () => {
       {
         type: 'input',
         name: 'email',
-        message: "What is the Intern's email address?",
+        message: "Intern's email address:",
         validate(email) {
-          if (!email) {
-            return 'Intern email address is required.';
+          if (email) {
+            return validateEmail(email);
+          } else if (!email) {
+            return 'Email address is required.';
           } else {
             return true;
           }
@@ -263,10 +287,10 @@ const promptIntern = () => {
       {
         type: 'input',
         name: 'school',
-        message: "What is the name of the Intern's school?",
+        message: "Intern's school:",
         validate(school) {
           if (!school) {
-            return 'Intern school is required.';
+            return 'School is required.';
           } else {
             return true;
           }
@@ -289,8 +313,7 @@ const promptIntern = () => {
       if (addIntern) {
         promptIntern();
       } else {
-        const html = generateHTML(team);
-        writeToFile('./dist/index.html', html);
+        writeFile(team);
       }
     });
 };
@@ -299,12 +322,12 @@ const promptIntern = () => {
 (function init() {
   // welcome the user
   console.log(`
-  Welcome to the Teammaker Page Generator!
+  Welcome to the ${highlight('Teammaker Page Generator')}!
   ------------------------------------------------------------------
   Enter data about each member of your development team to produce
   a quality webpage written in HTML and Tailwind CSS for use on your
-  business's website! MAKE YOURSELVES KNOWN!`);
+  business's website! ${highlight('MAKE YOURSELVES KNOWN!')}`);
 
-  // begin manager prompt
+  // begin prompts, starting with the Team Manager
   promptManager();
 })();
